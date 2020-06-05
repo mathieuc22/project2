@@ -7,52 +7,60 @@
 
     <meta http-equiv="Content-Security-Policy" content="
       default-src *;
-      style-src * 'self' 'unsafe-inline'; 
+      style-src * 'self' 'unsafe-inline';
       script-src * 'self' 'unsafe-inline' 'unsafe-eval';
       connect-src * ;">
-      
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='index.js')}}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <title>Chat</title>
   </head>
-  <body>
 
-    <input type="text" class="form-control m-2 mr-sm-2" id="username" placeholder="Username">
-    <button id="btn-username" class="btn btn-primary m-2">Submit</button>
+  <body class="d-flex flex-column vh-100">
 
-    <hr>
-    
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active">
-        <input type="radio" data-room="General" name="options" id="General" checked> General
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" data-room="Room1" name="options" id="Room1"> Room 1
-      </label>
-      <label class="btn btn-secondary">
-        <input type="radio" data-room="Room2" name="options" id="Room2"> Room 2
-      </label>
-    </div>
-    
-    <hr>
+    <div class="container">
 
-    <div class="mesgs">
-      <div id="msg_history" class="msg_history">
-
-      </div>
-        
-      <div class="type_msg">
-        <div class="input_msg_write">
-          <input id="message" type="text" class="write_msg" placeholder="Type a message" />
-          <button id="send-msg" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+      <form id="form-username">
+        <div class="input-group my-3">
+          <input type="text" class="form-control" id="username" placeholder="Username">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="btn-username">Submit</button>
+          </div>
         </div>
+      </form>
+
+      <div class="btn-group mb-3 btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+          <input type="radio" data-room="General" name="options" id="General" checked> General
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" data-room="Room1" name="options" id="Room1"> Room 1
+        </label>
+        <label class="btn btn-secondary">
+          <input type="radio" data-room="Room2" name="options" id="Room2"> Room 2
+        </label>
       </div>
 
     </div>
-   
-    <hr>
+
+    <div class="container msg_history h-100 py-3 overflow-auto">
+    </div>
+
+    <div class="container mt-auto">
+
+
+      <form id="form-msg">
+        <div class="input-group my-3">
+          <input type="text" class="form-control" id="message" placeholder="Your message...">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="send-msg">Send</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

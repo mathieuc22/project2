@@ -18,15 +18,15 @@
     <title>Chat</title>
   </head>
 
-  <body class="d-flex flex-column vh-100">
+  <body class="d-flex flex-column">
 
-    <div class="container">
+    <div class="container top">
 
       <form id="form-username">
         <div class="input-group my-3">
           <input type="text" class="form-control" id="username" placeholder="Username">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="btn-username">Submit</button>
+            <button class="btn btn-outline-secondary" type="submit" id="btn-username">Submit</button>
           </div>
         </div>
       </form>
@@ -45,20 +45,21 @@
 
     </div>
 
-    <div class="container msg_history h-100 py-3 overflow-auto">
+    <div class="container msg_history py-3 overflow-auto">
     </div>
 
-    <div class="container mt-auto">
+    <div class="container bottom">
 
-
-      <form id="form-msg">
-        <div class="input-group my-3">
-          <input type="text" class="form-control" id="message" placeholder="Your message...">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="send-msg">Send</button>
+      <div class="container fixed-bottom">
+        <form id="form-msg">
+          <div class="input-group my-3">
+            <input type="text" class="form-control" id="message" placeholder="Your message..." autofocus>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit" id="send-msg">Send</button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
 
     </div>
 

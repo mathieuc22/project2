@@ -1,17 +1,22 @@
-html, body {
+body {
   height: 100vh;
   /* mobile viewport bug fix */
   height: -webkit-fill-available;
 }
 
+.channels {
+  width: 200px;
+}
+
 .msg_history {
   height: 70vh;
+  background-color: blue;
 }
 
-.top {
-  height: 20vh;
+.msg_box {
+  height: 80px;
 }
 
-.bottom {
-  height: 10vh;
+.msg {
+  bottom: 0;
 }

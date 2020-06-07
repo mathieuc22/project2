@@ -18,9 +18,9 @@
     <title>Chat</title>
   </head>
 
-  <body class="d-flex flex-column">
+  <body class="d-flex">
 
-    <div class="container top">
+    <div class="container channels">
 
       <form id="form-username">
         <div class="input-group my-3">
@@ -31,7 +31,7 @@
         </div>
       </form>
 
-      <div class="btn-group mb-3 btn-group-toggle" data-toggle="buttons">
+      <div class="btn-group-vertical mb-3 btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary active">
           <input type="radio" data-room="General" name="options" id="General" checked> General
         </label>
@@ -45,20 +45,20 @@
 
     </div>
 
-    <div class="container msg_history py-3 overflow-auto">
-    </div>
+    <div class="container d-flex flex-column">
 
-    <div class="container bottom">
+      <div class="container msg_history flex-grow-1 py-3 overflow-auto">
+      </div>
 
-      <div class="container fixed-bottom">
-        <form id="form-msg">
-          <div class="input-group my-3">
-            <input type="text" class="form-control" id="message" placeholder="Your message..." autofocus>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit" id="send-msg">Send</button>
+      <div class="container d-flex msg_box">
+          <form id="form-msg" class="my-auto flex-grow-1">
+            <div class="input-group">
+              <input type="text" class="form-control" id="message" placeholder="Your message..." autofocus>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="send-msg">Send</button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
       </div>
 
     </div>

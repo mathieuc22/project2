@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     var msg = document.querySelector('#message').value;
     const room = document.querySelector('[name="options"]:checked').dataset.room;
     document.querySelector('#message').value= '';
+    document.querySelector('#message').onfocus = function () {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+    };
     socket.emit('send message', {'msg': msg, 'room': room});
 
     // Stop form from submitting

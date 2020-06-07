@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{url_for('static', filename='test.css')}}">
+
+    <title>Chat</title>
+
+  </head>
+
+  <body>
+
+    <div class="channels">
+      <form id="form-username">
+          <input type="text" class="form-control" id="username" placeholder="Username">
+            <button class="btn btn-outline-secondary" type="submit" id="btn-username">Submit</button>
+      </form>
+    </div>
+
+    <div class="msg">
+      <div class="msg_history">
+        Messages
+      </div>
+
+      <div class="msg_box">
+        <form id="form-msg">
+          <input type="text" id="message" placeholder="Your message..." autofocus>
+          <button class="btn btn-outline-secondary" type="submit" id="send-msg">Send</button>
+        </form>
+      </div>
+
+    </div>
+
+  </body>
+</html>

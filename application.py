@@ -16,6 +16,10 @@ Session(app)
 def index():
     return render_template("index.html")
 
+@app.route("/test")
+def test():
+    return render_template("test.html")
+
 @socketio.on('join')
 def on_join(data):
     print(f'join {data} {request.sid}')

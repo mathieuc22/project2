@@ -5,27 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // When connected, configure buttons
   socket.on('connect', () => {
+
     // Send content of the input text on submit
     document.querySelector('#form-username').onsubmit = () => {
       const username = document.querySelector('#username').value;
       const room = 'General';
-      document.querySelector('#General').checked = true;
-      //document.querySelector('#current-room').innerHTML = `Current room: ${room}`;
+      // Log the connection
+      console.log(`connect ${username} on room ${room}`)
       socket.emit('join', {'username': username, 'room': room});
-
       // Stop form from submitting
       return false;
     };
 
     // Each button should emit a "submit vote" event
     document.querySelectorAll('[data-room]').forEach(button => {
-
       button.onclick = () => {
-          const username = document.querySelector('#username').value;
-          const room = button.dataset.room;
-          console.log(room)
-          document.querySelector('.msg_history').innerHTML='';
-          socket.emit('join', {'username': username, 'room': room});
+        document.querySelectorAll('[data-room]').forEach(button => {
+          button.setAttribute('class', 'nav-link');
+        });
+        const username = document.querySelector('#username').value;
+        const room = button.dataset.room;
+        button.setAttribute('class', 'nav-link active');
+        // Log the connection
+        console.log(`connect ${username} on room ${room}`)
+        document.querySelector('.msg_history').innerHTML='';
+        socket.emit('join', {'username': username, 'room': room});
       };
     });
 
@@ -34,21 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Send content of the input text on submit
   document.querySelector('#form-msg').onsubmit = () => {
     var msg = document.querySelector('#message').value;
-    const room = document.querySelector('[name="options"]:checked').dataset.room;
+    const room = document.querySelector('[data-room].active').dataset.room;
     document.querySelector('#message').value= '';
-    document.querySelector('#message').onfocus = function () {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
-    };
     socket.emit('send message', {'msg': msg, 'room': room});
-
     // Stop form from submitting
     return false;
   };
 
   // When a new vote is announced, add to the unordered list
   socket.on('broadcast message', data => {
-    console.log(`Broadcast in ${socket.rooms}`);
 
     const username = document.querySelector('#username').value;
     const d0 = document.querySelector('.msg_history');
@@ -69,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       d1.innerHTML = data.msg;
     }
 
-    d0.appendChild(d1);
+    d0.prepend(d1);
     //s.setAttribute('class', 'time_date');
     //s.innerHTML =dateTime;
     //d1.appendChild(s);
@@ -78,3 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+/* globals Chart:false, feather:false */
+
+(function () {
+  'use strict'
+
+  feather.replace()
+
+}())

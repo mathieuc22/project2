@@ -4,68 +4,85 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Chat</title>
 
-    <meta http-equiv="Content-Security-Policy" content="
-      default-src *;
-      style-src * 'self' 'unsafe-inline';
-      script-src * 'self' 'unsafe-inline' 'unsafe-eval';
-      connect-src * ;">
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='index.js')}}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-    <title>Chat</title>
+
   </head>
 
-  <body class="d-flex">
+  <body>
 
-    <div class="container channels">
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Chat</a>
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
 
-      <form id="form-username">
-        <div class="input-group my-3">
-          <input type="text" class="form-control" id="username" placeholder="Username">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" id="btn-username">Submit</button>
-          </div>
-        </div>
-      </form>
-
-      <div class="btn-group-vertical mb-3 btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-          <input type="radio" data-room="General" name="options" id="General" checked> General
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" data-room="Room1" name="options" id="Room1"> Room 1
-        </label>
-        <label class="btn btn-secondary">
-          <input type="radio" data-room="Room2" name="options" id="Room2"> Room 2
-        </label>
-      </div>
-
-    </div>
-
-    <div class="container d-flex flex-column">
-
-      <div class="container msg_history flex-grow-1 py-3 overflow-auto">
-      </div>
-
-      <div class="container d-flex msg_box">
-          <form id="form-msg" class="my-auto flex-grow-1">
-            <div class="input-group">
-              <input type="text" class="form-control" id="message" placeholder="Your message..." autofocus>
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit" id="send-msg">Send</button>
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="sidebar-sticky pt-3">
+            <form id="form-username">
+              <div class="input-group p-3">
+                <input type="text" class="form-control" id="username" placeholder="Username">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit" id="btn-username">OK</button>
+                </div>
               </div>
-            </div>
-          </form>
-      </div>
+            </form>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" data-room="General" href="#">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-room="Room1" href="#">
+                  <span data-feather="file"></span>
+                  Room1
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-room="Room2" href="#">
+                  <span data-feather="file"></span>
+                  Room2
+                </a>
+              </li>
+            </ul>
 
+          </div>
+        </nav>
+        
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0">
+      
+            <div class="msg_history overflow-auto">
+              
+            </div>
+            
+            <div class="msg_box py-1 bg-dark">
+                <form id="form-msg">
+                  <div class="input-group">
+                    <input type="text" class="form-control form-control-dark" id="message" placeholder="Your message..." autofocus>
+
+                  </div>
+                </form>
+            </div>
+
+          </div>
+        </main>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
 
   </body>
 </html>

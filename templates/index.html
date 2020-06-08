@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
     <title>Chat</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -25,14 +25,8 @@
       <div class="row">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div class="sidebar-sticky pt-3">
-            <form id="form-username">
-              <div class="input-group p-3">
-                <input type="text" class="form-control" id="username" placeholder="Username">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="submit" id="btn-username">OK</button>
-                </div>
-              </div>
-            </form>
+            <p class="mx-3">Welcome <span id="username">{{name}}</span>!</p>
+            <p class="mx-3"><a href="{{url_for('logout')}}">Logout</a></p>
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" data-room="General" href="#">
@@ -56,13 +50,13 @@
 
           </div>
         </nav>
-        
+
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-0">
-      
+
             <div class="msg_history overflow-auto">
-              
+
             </div>
-            
+
             <div class="msg_box py-1 bg-dark">
                 <form id="form-msg">
                   <div class="input-group">

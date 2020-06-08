@@ -6,16 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // When connected, configure buttons
   socket.on('connect', () => {
 
-    // Send content of the input text on submit
-    document.querySelector('#form-username').onsubmit = () => {
-      const username = document.querySelector('#username').value;
-      const room = 'General';
-      // Log the connection
-      console.log(`connect ${username} on room ${room}`)
-      socket.emit('join', {'username': username, 'room': room});
-      // Stop form from submitting
-      return false;
-    };
+    const username = document.querySelector('#username').innerHTML;
+    const room = 'General';
+    // Log the connection
+    console.log(`connect ${username} on room ${room}`)
+    socket.emit('join', {'username': username, 'room': room});
 
     // Each button should emit a "submit vote" event
     document.querySelectorAll('[data-room]').forEach(button => {
@@ -23,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-room]').forEach(button => {
           button.setAttribute('class', 'nav-link');
         });
-        const username = document.querySelector('#username').value;
+        //const username = document.querySelector('#username').innerHTML;
         const room = button.dataset.room;
         button.setAttribute('class', 'nav-link active');
         // Log the connection

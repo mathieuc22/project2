@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
-from models import db, User
+from models import db, User, Room, Message
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -16,7 +16,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 socketio = SocketIO(app)
 
 db.init_app(app)
-
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
@@ -100,16 +99,19 @@ def test():
 
 @socketio.on('join')
 def on_join(data):
-    print(f'join {data} {request.sid}')
-    session["username"] = data["username"]
+    print(f'{data["username"]} with {request.sid} join {data["room"]}')
     room = data["room"]
-    print(f'Session room:{session.get("room")} vs joining room:{room}')
     if session.get("room") and session.get("room") != room:
         print(f'leave {session["room"]}')
         leave_room(session["room"])
     session["room"]= room
     join_room(room)
-
+    # fill the message history
+    room_name = Room.query.filter_by(name=room).first()
+    messages = db.session.query(Message, User).join(User, Message.user_id == User.id).filter(Message.room_id == room_name.id).all()
+    for message in messages:
+        emit("broadcast message", {"username": message.User.name, "msg": message.Message.content})
+    
 @socketio.on('leave')
 def on_leave(data):
     print(f'leave {data}')
@@ -120,7 +122,17 @@ def on_leave(data):
 @socketio.on("send message")
 def messages(data):
     print(f'send {data}')
-    username = session.get("username")
     room = data["room"]
     msg = data["msg"]
-    emit("broadcast message", {"username": username, "msg": msg}, room=room)
+    
+    dbroom = Room.query.filter_by(name=room).first()
+    # create new user with the form data. Hash the password so plaintext version isn't saved.
+    new_message = Message(content=msg, 
+                user_id=current_user.id, 
+                room_id=dbroom.id)
+    # add the new user to the database
+    db.session.add(new_message)
+    db.session.commit()
+    new_message = Message.query.order_by(Message.id.desc()).first()
+
+    emit("broadcast message", {"username": current_user.name, "msg": msg, "date": new_message.timestamp}, room=room)

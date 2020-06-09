@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = document.querySelector('#username').innerHTML;
     const room = 'General';
     // Log the connection
-    console.log(`connect ${username} on room ${room}`)
+    console.log(`connect ${username} on room ${room}`);
     socket.emit('join', {'username': username, 'room': room});
 
     // Each button should emit a "submit vote" event
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = button.dataset.room;
         button.setAttribute('class', 'nav-link active');
         // Log the connection
-        console.log(`connect ${username} on room ${room}`)
+        console.log(`connect ${username} on room ${room}`);
         document.querySelector('.msg_history').innerHTML='';
         socket.emit('join', {'username': username, 'room': room});
       };
@@ -43,31 +43,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // When a new vote is announced, add to the unordered list
   socket.on('broadcast message', data => {
 
-    const username = document.querySelector('#username').value;
+    const username = document.querySelector('#username').innerHTML;
     const d0 = document.querySelector('.msg_history');
     const d1 = document.createElement('div');
-    //const s = document.createElement('span');
+    const s = document.createElement('span');
 
-    var today = new Date();
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var date = months[today.getMonth()]+' '+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes();
-    var dateTime = date+' | '+time;
-
+    // Log the connection
+    console.log(`current user ${username} message from ${data.username}`);
     if (username != data.username) {
-      d1.setAttribute('class', 'alert w-75 alert-dark');
+      d1.setAttribute('class', 'alert alert-dark');
       d1.innerHTML = `${data.username}: ${data.msg}`;
     } else {
-      d1.setAttribute('class', 'alert w-75 ml-auto alert-info text-right');
+      d1.setAttribute('class', 'alert ml-auto alert-info text-right');
       d1.innerHTML = data.msg;
     }
 
     d0.prepend(d1);
-    //s.setAttribute('class', 'time_date');
-    //s.innerHTML =dateTime;
-    //d1.appendChild(s);
+    s.setAttribute('class', 'time_date');
+    s.innerHTML = data.date;
+    d0.prepend(s);
 
-    d0.scrollTop = d0.scrollHeight;
   });
 
 });

@@ -27,12 +27,17 @@ main {
 }
 
 .msg_history {
-  height: calc(100vh - 118px);
+  height: calc(100vh - 94px);
   transform: rotate(180deg);
   direction: rtl;
 }
 
 .alert {
+  transform: rotate(180deg);
+  direction: ltr;
+}
+
+.time_date {
   transform: rotate(180deg);
   direction: ltr;
 }

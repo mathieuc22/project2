@@ -110,7 +110,9 @@ def on_join(data):
     room_name = Room.query.filter_by(name=room).first()
     messages = db.session.query(Message, User).join(User, Message.user_id == User.id).filter(Message.room_id == room_name.id).all()
     for message in messages:
-        emit("broadcast message", {"username": message.User.name, "msg": message.Message.content})
+        date=f'{message.Message.timestamp}'
+        print(date)
+        emit("broadcast message", {"username": message.User.name, "msg": message.Message.content, "date": date})
     
 @socketio.on('leave')
 def on_leave(data):
@@ -134,5 +136,6 @@ def messages(data):
     db.session.add(new_message)
     db.session.commit()
     new_message = Message.query.order_by(Message.id.desc()).first()
+    date=f'{new_message.timestamp}'
 
-    emit("broadcast message", {"username": current_user.name, "msg": msg, "date": new_message.timestamp}, room=room)
+    emit("broadcast message", {"username": current_user.name, "msg": msg, "date": date}, room=room)

@@ -37,11 +37,6 @@ main {
   direction: ltr;
 }
 
-.time_date {
-  transform: rotate(180deg);
-  direction: ltr;
-}
-
 .msg_box {
   position: absolute;
   bottom: 0;

@@ -46,22 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = document.querySelector('#username').innerHTML;
     const d0 = document.querySelector('.msg_history');
     const d1 = document.createElement('div');
-    const s = document.createElement('span');
 
     // Log the connection
     console.log(`current user ${username} message from ${data.username}`);
     if (username != data.username) {
       d1.setAttribute('class', 'alert alert-dark');
-      d1.innerHTML = `${data.username}: ${data.msg}`;
+      d1.innerHTML = `${data.date} <br> ${data.username}: ${data.msg}`;
     } else {
       d1.setAttribute('class', 'alert ml-auto alert-info text-right');
-      d1.innerHTML = data.msg;
+      d1.innerHTML = `${data.date} <br> ${data.msg}`;
     }
 
     d0.prepend(d1);
-    s.setAttribute('class', 'time_date');
-    s.innerHTML = data.date;
-    d0.prepend(s);
 
   });
 
